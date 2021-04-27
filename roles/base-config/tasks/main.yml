@@ -9,6 +9,14 @@
     backup: yes
 
 - name: enable repos
+  template:
+    src: repos_template.j2
+    dest: /etc/yum.repos.d/3-tier-app.repo
  
 - name: install base tools and packages
-
+  yum:
+    name: "{{ item }}" 
+    state: latest
+  with_items:
+    - python-pip
+#    - httpie
