@@ -1,3 +1,21 @@
 ---
+- name: install {{ payload }}
+  yum:
+    name: "{{ payload }}"
+    state: latest
 
+- name: enable {{ payload }}
+  service:
+    name: "{{ payload }}"
+    enabled: yes
+
+- name: configure lb
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: start {{ payload }}
+  service:
+    name: "{{ payload }}"
+    state: restarted
 
